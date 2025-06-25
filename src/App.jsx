@@ -141,7 +141,17 @@ function App() {
     setTargetUserID("");
     setFetchingUsers(true);
     setFetchUsersError("");
-    fetch("https://copy-roles-api.onrender.com/api/users")
+    fetch("https://copy-roles-api.onrender.com/api/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        credentials: {
+          clientId,
+          clientSecret,
+          region: normalizeRegion(region),
+        },
+      }),
+    })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch users");
         return res.json();
@@ -150,12 +160,12 @@ function App() {
         setUsers(data.users || []);
         setFetchingUsers(false);
       })
-      .catch(() => {
+      .catch((err) => {
         setUsers([]);
         setFetchingUsers(false);
-        setFetchUsersError("Failed to fetch users. Please try again.");
+        setFetchUsersError("Failed to fetch users. Please try again. " + (err?.message || ""));
       });
-  }, [credsConfigured]);
+  }, [credsConfigured, clientId, clientSecret, region]);
 
   const normalizeRegion = (region) => region.replace(/-/g, "_");
 
