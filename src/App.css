@@ -60,8 +60,7 @@ body, html, #root {
   flex-direction: column;
 }
 
-.gc-form-group input,
-.gc-form-group select {
+.gc-form-group input {
   padding: 12px 14px;
   border: 1px solid #cfd8dc;
   border-radius: 6px;
@@ -376,4 +375,21 @@ body, html, #root {
   outline: none;
   background-color: #f7fafc;
   box-shadow: 0 0 0 2px #e3eafc;
+}
+/* Make select dropdown and its options more visible */
+.gc-form-group select {
+  min-height: 44px;
+  font-size: 1em;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #f7fafc;
+  box-sizing: border-box;
+  overflow-y: auto;
+  /* Remove max-height if present */
+}
+
+/* Optional: Make the dropdown list itself taller */
+.gc-form-group select option {
+  padding: 10px 14px;
+  font-size: 1em;
 }
