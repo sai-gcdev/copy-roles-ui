@@ -367,3 +367,23 @@ body, html, #root {
   color: #b3b3b3;
   cursor: default;
 }
+/* ...existing code... */
+.gc-user-dropdown-search {
+  width: 96%;
+  margin: 6px auto 10px auto;
+  display: block;
+  padding: 7px 12px;
+  border: 1.5px solid #bdbdbd;
+  border-radius: 5px;
+  font-size: 1em;
+  background: #f7fafc;
+  transition: border 0.15s, box-shadow 0.15s;
+  box-shadow: 0 1px 4px rgba(0,82,204,0.04);
+}
+.gc-user-dropdown-search:focus {
+  border: 1.5px solid #0052cc;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 0 0 2px #e3eafc;
+}
+/* ...existing code... */
