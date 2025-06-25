@@ -21,7 +21,7 @@ const REGION_MAP = {
 };
 
 // --- Searchable Dropdown Component ---
-function UserDropdown({ users, value, onChange, placeholder }) {
+function UserDropdown({ users, value, onChange, placeholder, loading, fetchError }) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const ref = useRef();
@@ -66,39 +66,51 @@ function UserDropdown({ users, value, onChange, placeholder }) {
       </div>
       {open && (
         <div className="gc-user-dropdown-menu">
-          <input
-            className="gc-user-dropdown-search"
-            placeholder="Search user..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            autoFocus
-          />
-          <div className="gc-user-dropdown-list">
-            {filtered.length === 0 && (
-              <div className="gc-user-dropdown-item gc-user-dropdown-empty">
-                No users found
+          {loading ? (
+            <div className="gc-user-dropdown-item gc-user-dropdown-empty">
+              Fetching users...
+            </div>
+          ) : fetchError ? (
+            <div className="gc-user-dropdown-item gc-user-dropdown-empty" style={{color: "#c62828"}}>
+              {fetchError}
+            </div>
+          ) : (
+            <>
+              <input
+                className="gc-user-dropdown-search"
+                placeholder="Search user..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                autoFocus
+              />
+              <div className="gc-user-dropdown-list">
+                {filtered.length === 0 && (
+                  <div className="gc-user-dropdown-item gc-user-dropdown-empty">
+                    No users found
+                  </div>
+                )}
+                {filtered.map((user) => (
+                  <div
+                    key={user.id}
+                    className={`gc-user-dropdown-item${
+                      value === user.id ? " selected" : ""
+                    }`}
+                    onClick={() => {
+                      onChange(user.id);
+                      setOpen(false);
+                      setSearch("");
+                    }}
+                  >
+                    <span>{user.name}</span>
+                    <span className="gc-user-dropdown-email">
+                      {" "}
+                      ({user.email})
+                    </span>
+                  </div>
+                ))}
               </div>
-            )}
-            {filtered.map((user) => (
-              <div
-                key={user.id}
-                className={`gc-user-dropdown-item${
-                  value === user.id ? " selected" : ""
-                }`}
-                onClick={() => {
-                  onChange(user.id);
-                  setOpen(false);
-                  setSearch("");
-                }}
-              >
-                <span>{user.name}</span>
-                <span className="gc-user-dropdown-email">
-                  {" "}
-                  ({user.email})
-                </span>
-              </div>
-            ))}
-          </div>
+            </>
+          )}
         </div>
       )}
     </div>
@@ -113,6 +125,8 @@ function App() {
   const [credsConfigured, setCredsConfigured] = useState(false);
 
   const [users, setUsers] = useState([]);
+  const [fetchingUsers, setFetchingUsers] = useState(false);
+  const [fetchUsersError, setFetchUsersError] = useState("");
   const [sourceUserID, setSourceUserID] = useState("");
   const [targetUserID, setTargetUserID] = useState("");
   const [result, setResult] = useState(null);
@@ -125,10 +139,22 @@ function App() {
     setUsers([]);
     setSourceUserID("");
     setTargetUserID("");
+    setFetchingUsers(true);
+    setFetchUsersError("");
     fetch("https://copy-roles-api.onrender.com/api/user")
-      .then((res) => res.json())
-      .then((data) => setUsers(data.users || []))
-      .catch(() => setUsers([]));
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch users");
+        return res.json();
+      })
+      .then((data) => {
+        setUsers(data.users || []);
+        setFetchingUsers(false);
+      })
+      .catch(() => {
+        setUsers([]);
+        setFetchingUsers(false);
+        setFetchUsersError("Failed to fetch users. Please try again.");
+      });
   }, [credsConfigured]);
 
   const normalizeRegion = (region) => region.replace(/-/g, "_");
@@ -189,6 +215,8 @@ function App() {
     setError(null);
     setModalOpen(false);
     setUsers([]);
+    setFetchUsersError("");
+    setFetchingUsers(false);
   };
 
   return (
@@ -207,6 +235,8 @@ function App() {
                   value={sourceUserID}
                   onChange={setSourceUserID}
                   placeholder="Select Source User"
+                  loading={fetchingUsers}
+                  fetchError={fetchUsersError}
                 />
               </div>
               <div className="gc-form-group">
@@ -215,6 +245,8 @@ function App() {
                   value={targetUserID}
                   onChange={setTargetUserID}
                   placeholder="Select Target User"
+                  loading={fetchingUsers}
+                  fetchError={fetchUsersError}
                 />
               </div>
               <div className="gc-form-group gc-region-row">
@@ -236,7 +268,9 @@ function App() {
                   !credsConfigured ||
                   loading ||
                   !sourceUserID ||
-                  !targetUserID
+                  !targetUserID ||
+                  fetchingUsers ||
+                  !!fetchUsersError
                 }
               >
                 {loading ? "Copying..." : "Copy Roles"}
@@ -245,6 +279,12 @@ function App() {
                 <div className="gc-info-msg">
                   Please <b>configure credentials</b> to enable role copying.
                 </div>
+              )}
+              {fetchingUsers && (
+                <div className="gc-info-msg">Fetching users...</div>
+              )}
+              {fetchUsersError && (
+                <div className="gc-error">{fetchUsersError}</div>
               )}
               {result && <div className="gc-success">{result.message}</div>}
               {error && <div className="gc-error">{error}</div>}
