@@ -2,11 +2,23 @@ import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import genesysLogo from "./assets/genesys-logo.png";
 
+// ✅ Full list of Genesys Cloud regions
 const REGION_MAP = {
   "ap-south-1": "Asia Pacific (Mumbai)",
   "ap-northeast-3": "Asia Pacific (Osaka)",
-  // ... rest unchanged
-  "us-west-2": "Americas (US West)",
+  "ap-northeast-2": "Asia Pacific (Seoul)",
+  "ap-southeast-2": "Asia Pacific (Sydney)",
+  "ap-northeast-1": "Asia Pacific (Tokyo)",
+  "ca-central-1": "Canada (Central)",
+  "eu-central-1": "Europe (Frankfurt)",
+  "eu-west-1": "Europe (Ireland)",
+  "eu-west-2": "Europe (London)",
+  "eu-central-2": "Europe (Zurich)",
+  "me-central-1": "Middle East (UAE)",
+  "sa-east-1": "South America (São Paulo)",
+  "us-east-1": "US East (N. Virginia)",
+  "us-east-2": "US East 2 (Ohio) – FedRAMP",
+  "us-west-2": "US West (Oregon)",
 };
 
 function UserDropdown({ users, value, onChange, placeholder, loading, fetchError }) {
@@ -36,7 +48,6 @@ function UserDropdown({ users, value, onChange, placeholder, loading, fetchError
     }
   };
 
-  // Reset search when list changes
   useEffect(() => {
     setSearch("");
   }, [users]);

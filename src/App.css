@@ -1,3 +1,4 @@
+/* Core Resets */
 body, html, #root {
   height: 100%;
   margin: 0;
@@ -12,11 +13,11 @@ body, html, #root {
 
 .gc-header {
   display: flex;
-  justify-content: flex-start;   /* changed from center */
+  justify-content: flex-start;
   align-items: center;
   margin-top: 30px;
   margin-bottom: 24px;
-  margin-left: 37vw;             /* add this line to match the card shift */
+  margin-left: 37vw;
 }
 
 .gc-logo {
@@ -24,12 +25,13 @@ body, html, #root {
   width: auto;
 }
 
+/* Layout Positioning */
 .gc-center-outer {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   min-height: calc(100vh - 140px);
-  margin-left: 23vw; /* increase this value for more right shift */
+  margin-left: 23vw;
 }
 
 .gc-login-card {
@@ -42,9 +44,10 @@ body, html, #root {
   max-width: 800px;
 }
 
+/* Left Pane */
 .gc-login-left {
   flex: 1.2;
-  padding: 36px 32px 36px 32px;
+  padding: 36px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,7 +63,8 @@ body, html, #root {
   flex-direction: column;
 }
 
-.gc-form-group input {
+.gc-form-group input,
+.gc-form-group select {
   padding: 12px 14px;
   border: 1px solid #cfd8dc;
   border-radius: 6px;
@@ -68,6 +72,7 @@ body, html, #root {
   background: #f7fafc;
   transition: border 0.15s;
 }
+
 .gc-form-group input:focus,
 .gc-form-group select:focus {
   border: 1.5px solid #0052cc;
@@ -85,6 +90,7 @@ body, html, #root {
   color: #333;
 }
 
+/* Buttons */
 .gc-change-btn {
   background: none;
   border: none;
@@ -137,6 +143,7 @@ body, html, #root {
   color: #003d99;
 }
 
+/* Feedback Messages */
 .gc-info-msg {
   margin-top: 18px;
   color: #0052cc;
@@ -165,6 +172,7 @@ body, html, #root {
   font-size: 1em;
 }
 
+/* Right Panel */
 .gc-login-right {
   flex: 1;
   background: #6b4f7c;
@@ -191,7 +199,6 @@ body, html, #root {
   font-size: 1.03em;
   padding-left: 20px;
   margin-bottom: 18px;
-  color: #fff;
   text-align: left;
 }
 
@@ -203,6 +210,7 @@ body, html, #root {
   color: #e3eafc;
 }
 
+/* Modal */
 .gc-modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -275,6 +283,97 @@ body, html, #root {
   gap: 10px;
 }
 
+/* Dropdown Styles */
+.gc-user-dropdown {
+  position: relative;
+  width: 100%;
+  font-size: 1em;
+}
+
+.gc-user-dropdown-control {
+  background: #f7fafc;
+  border: 1px solid #cfd8dc;
+  border-radius: 6px;
+  padding: 12px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  transition: border 0.15s;
+}
+
+.gc-user-dropdown-control.open,
+.gc-user-dropdown-control:focus {
+  border: 1.5px solid #0052cc;
+}
+
+.gc-user-dropdown-placeholder {
+  color: #b3b3b3;
+}
+
+.gc-user-dropdown-arrow {
+  margin-left: 10px;
+  font-size: 1.1em;
+  color: #888;
+}
+
+.gc-user-dropdown-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1.5px solid #0052cc;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 16px rgba(0,82,204,0.08);
+  z-index: 10;
+  padding-top: 6px;
+}
+
+.gc-user-dropdown-list {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.gc-user-dropdown-item {
+  padding: 8px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.13s;
+}
+
+.gc-user-dropdown-item.selected,
+.gc-user-dropdown-item:hover {
+  background: #e3eafc;
+}
+
+.gc-user-dropdown-empty {
+  color: #b3b3b3;
+  cursor: default;
+}
+
+.gc-user-dropdown-search {
+  width: 96%;
+  margin: 10px auto 12px auto;
+  display: block;
+  padding: 7px 12px 7px 34px;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  font-size: 1em;
+  background: #fff url('data:image/svg+xml;utf8,<svg fill="gray" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99a1 1 0 001.41-1.41l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>') no-repeat 10px center;
+  box-sizing: border-box;
+  transition: border 0.15s, box-shadow 0.15s;
+}
+
+.gc-user-dropdown-search:focus {
+  border: 1.5px solid #0052cc;
+  outline: none;
+  background-color: #f7fafc;
+  box-shadow: 0 0 0 2px #e3eafc;
+}
+
 /* Responsive */
 @media (max-width: 800px) {
   .gc-login-card {
@@ -290,106 +389,4 @@ body, html, #root {
     margin-left: 0;
     justify-content: center;
   }
-}
-/* User Dropdown Styles */
-.gc-user-dropdown {
-  position: relative;
-  width: 100%;
-  font-size: 1em;
-}
-.gc-user-dropdown-control {
-  background: #f7fafc;
-  border: 1px solid #cfd8dc;
-  border-radius: 6px;
-  padding: 12px 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 44px;
-  transition: border 0.15s;
-}
-.gc-user-dropdown-control.open,
-.gc-user-dropdown-control:focus {
-  border: 1.5px solid #0052cc;
-}
-.gc-user-dropdown-placeholder {
-  color: #b3b3b3;
-}
-.gc-user-dropdown-arrow {
-  margin-left: 10px;
-  font-size: 1.1em;
-  color: #888;
-}
-.gc-user-dropdown-menu {
-  position: absolute;
-  top: 110%;
-  left: 0;
-  right: 0;
-  background: #fff;
-  border: 1.5px solid #0052cc;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 4px 16px rgba(0,82,204,0.08);
-  z-index: 10;
-  padding-top: 6px;
-}
-.gc-user-dropdown-list {
-  max-height: 220px;
-  overflow-y: auto;
-}
-.gc-user-dropdown-item {
-  padding: 8px 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: background 0.13s;
-}
-.gc-user-dropdown-item.selected,
-.gc-user-dropdown-item:hover {
-  background: #e3eafc;
-}
-.gc-user-dropdown-email {
-  color: #888;
-  font-size: 0.97em;
-  margin-left: 4px;
-}
-.gc-user-dropdown-empty {
-  color: #b3b3b3;
-  cursor: default;
-}
-.gc-user-dropdown-search {
-  width: 96%;
-  margin: 10px auto 12px auto;
-  display: block;
-  padding: 7px 12px 7px 34px; /* left padding for icon */
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  font-size: 1em;
-  background: #fff url('data:image/svg+xml;utf8,<svg fill="gray" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99a1 1 0 001.41-1.41l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>') no-repeat 10px center;
-  box-sizing: border-box;
-  transition: border 0.15s, box-shadow 0.15s;
-}
-
-.gc-user-dropdown-search:focus {
-  border: 1.5px solid #0052cc;
-  outline: none;
-  background-color: #f7fafc;
-  box-shadow: 0 0 0 2px #e3eafc;
-}
-/* Make select dropdown and its options more visible */
-.gc-form-group select {
-  min-height: 44px;
-  font-size: 1em;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: #f7fafc;
-  box-sizing: border-box;
-  overflow-y: auto;
-  /* Remove max-height if present */
-}
-
-/* Optional: Make the dropdown list itself taller */
-.gc-form-group select option {
-  padding: 10px 14px;
-  font-size: 1em;
 }
