@@ -162,7 +162,7 @@ function App() {
       })
       .catch((err) => {
         setUsers([]);
-        setFetchingUsers(false);
+        setFetchingUsers(false); // <--- Make sure this is here!
         setFetchUsersError("Failed to fetch users. Please try again. " + (err?.message || ""));
       });
   }, [credsConfigured, clientId, clientSecret, region]);
