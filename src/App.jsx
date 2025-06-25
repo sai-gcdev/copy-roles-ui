@@ -40,8 +40,7 @@ function UserDropdown({ users, value, onChange, placeholder, loading, fetchError
 
   const filtered = safeUsers.filter(
     (u) =>
-      (u.name && u.name.toLowerCase().includes(search.toLowerCase())) ||
-      (u.email && u.email.toLowerCase().includes(search.toLowerCase()))
+      u.name && u.name.toLowerCase().includes(search.toLowerCase())
   );
 
   const selectedUser = safeUsers.find((u) => u.id === value);
@@ -64,13 +63,7 @@ function UserDropdown({ users, value, onChange, placeholder, loading, fetchError
         }}
       >
         {selectedUser ? (
-          <span>
-            {selectedUser.name}
-            <span className="gc-user-dropdown-email">
-              {" "}
-              ({selectedUser.email})
-            </span>
-          </span>
+          <span>{selectedUser.name}</span>
         ) : (
           <span className="gc-user-dropdown-placeholder">{placeholder}</span>
         )}
@@ -106,16 +99,12 @@ function UserDropdown({ users, value, onChange, placeholder, loading, fetchError
                     key={user.id}
                     className={`gc-user-dropdown-item${value === user.id ? " selected" : ""}`}
                     onClick={() => {
-                      onChange(user.id);
+                      onChange(user.id); // Only the id is sent to backend
                       setOpen(false);
                       setSearch("");
                     }}
                   >
                     <span>{user.name}</span>
-                    <span className="gc-user-dropdown-email">
-                      {" "}
-                      ({user.email})
-                    </span>
                   </div>
                 ))}
               </div>
@@ -169,8 +158,6 @@ function App() {
         return res.json();
       })
       .then((data) => {
-        // Debug log
-        console.log("Fetched users:", data.users);
         setUsers(Array.isArray(data.users) ? data.users : []);
         setFetchingUsers(false);
       })
