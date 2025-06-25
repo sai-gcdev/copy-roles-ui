@@ -47,7 +47,7 @@ function UserDropdown({ users, value, onChange, placeholder, loading, fetchError
 
   // Dropdown should open only if not loading and no fetch error
   const handleDropdownClick = () => {
-    if (!loading && !fetchError && safeUsers.length > 0) setOpen((v) => !v);
+    setOpen((v) => !v);
   };
 
   return (
