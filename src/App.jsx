@@ -35,21 +35,33 @@ function UserDropdown({ users, value, onChange, placeholder, loading, fetchError
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  const filtered = users.filter(
+  // Defensive: fallback to empty array if users is not an array
+  const safeUsers = Array.isArray(users) ? users : [];
+
+  const filtered = safeUsers.filter(
     (u) =>
-      u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.email.toLowerCase().includes(search.toLowerCase())
+      (u.name && u.name.toLowerCase().includes(search.toLowerCase())) ||
+      (u.email && u.email.toLowerCase().includes(search.toLowerCase()))
   );
 
-  const selectedUser = users.find((u) => u.id === value);
+  const selectedUser = safeUsers.find((u) => u.id === value);
+
+  // Dropdown should open only if not loading and no fetch error
+  const handleDropdownClick = () => {
+    if (!loading && !fetchError && safeUsers.length > 0) setOpen((v) => !v);
+  };
 
   return (
     <div className="gc-user-dropdown" ref={ref}>
       <div
         className={`gc-user-dropdown-control${open ? " open" : ""}`}
-        onClick={() => setOpen((v) => !v)}
+        onClick={handleDropdownClick}
         tabIndex={0}
         onBlur={() => setOpen(false)}
+        style={{
+          background: loading ? "#f5f5f5" : undefined,
+          cursor: loading ? "not-allowed" : "pointer",
+        }}
       >
         {selectedUser ? (
           <span>
@@ -71,7 +83,7 @@ function UserDropdown({ users, value, onChange, placeholder, loading, fetchError
               Fetching users...
             </div>
           ) : fetchError ? (
-            <div className="gc-user-dropdown-item gc-user-dropdown-empty" style={{color: "#c62828"}}>
+            <div className="gc-user-dropdown-item gc-user-dropdown-empty" style={{ color: "#c62828" }}>
               {fetchError}
             </div>
           ) : (
@@ -92,9 +104,7 @@ function UserDropdown({ users, value, onChange, placeholder, loading, fetchError
                 {filtered.map((user) => (
                   <div
                     key={user.id}
-                    className={`gc-user-dropdown-item${
-                      value === user.id ? " selected" : ""
-                    }`}
+                    className={`gc-user-dropdown-item${value === user.id ? " selected" : ""}`}
                     onClick={() => {
                       onChange(user.id);
                       setOpen(false);
@@ -133,6 +143,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const normalizeRegion = (region) => region.replace(/-/g, "_");
+
   // Fetch users on mount or when creds are configured
   useEffect(() => {
     if (!credsConfigured) return;
@@ -157,17 +169,17 @@ function App() {
         return res.json();
       })
       .then((data) => {
-        setUsers(data.users || []);
+        // Debug log
+        console.log("Fetched users:", data.users);
+        setUsers(Array.isArray(data.users) ? data.users : []);
         setFetchingUsers(false);
       })
       .catch((err) => {
         setUsers([]);
-        setFetchingUsers(false); // <--- Make sure this is here!
+        setFetchingUsers(false);
         setFetchUsersError("Failed to fetch users. Please try again. " + (err?.message || ""));
       });
   }, [credsConfigured, clientId, clientSecret, region]);
-
-  const normalizeRegion = (region) => region.replace(/-/g, "_");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
