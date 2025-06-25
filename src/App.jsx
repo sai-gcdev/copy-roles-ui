@@ -99,6 +99,7 @@ function UserDropdown({ users, value, onChange, placeholder, loading, fetchError
                     key={user.id}
                     className={`gc-user-dropdown-item${value === user.id ? " selected" : ""}`}
                     onClick={() => {
+                      console.log("User selected:", user); // LOG selection
                       onChange(user.id); // Only the id is sent to backend
                       setOpen(false);
                       setSearch("");
@@ -158,6 +159,7 @@ function App() {
         return res.json();
       })
       .then((data) => {
+        console.log("Fetched users from API:", data.users); // LOG API response
         setUsers(Array.isArray(data.users) ? data.users : []);
         setFetchingUsers(false);
       })
@@ -165,6 +167,7 @@ function App() {
         setUsers([]);
         setFetchingUsers(false);
         setFetchUsersError("Failed to fetch users. Please try again. " + (err?.message || ""));
+        console.error("Error fetching users:", err); // LOG error
       });
   }, [credsConfigured, clientId, clientSecret, region]);
 
@@ -227,6 +230,11 @@ function App() {
     setFetchUsersError("");
     setFetchingUsers(false);
   };
+
+  // LOG users state every render for debugging
+  useEffect(() => {
+    console.log("Current users state:", users);
+  }, [users]);
 
   return (
     <div className="gc-bg">
