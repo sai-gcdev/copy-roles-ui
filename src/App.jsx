@@ -141,7 +141,7 @@ function App() {
     setTargetUserID("");
     setFetchingUsers(true);
     setFetchUsersError("");
-    fetch("https://copy-roles-api.onrender.com/api/user")
+    fetch("https://copy-roles-api.onrender.com/api/users")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch users");
         return res.json();
