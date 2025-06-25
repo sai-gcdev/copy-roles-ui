@@ -42,7 +42,7 @@ function App() {
     setResult(null);
 
     try {
-      const response = await fetch("http://localhost:3001/api/copy-roles", {
+      const response = await fetch("https://copy-roles-api.onrender.com/api/copy-roles", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
