@@ -334,15 +334,6 @@ body, html, #root {
   z-index: 10;
   padding-top: 6px;
 }
-.gc-user-dropdown-search {
-  width: 95%;
-  margin: 0 auto 6px auto;
-  display: block;
-  padding: 8px 10px;
-  border: 1px solid #cfd8dc;
-  border-radius: 4px;
-  font-size: 1em;
-}
 .gc-user-dropdown-list {
   max-height: 220px;
   overflow-y: auto;
@@ -369,21 +360,21 @@ body, html, #root {
 }
 /* ...existing code... */
 .gc-user-dropdown-search {
-  width: 96%;
-  margin: 6px auto 10px auto;
+  width: 95%;
+  margin: 8px auto 10px auto;
   display: block;
-  padding: 7px 12px;
-  border: 1.5px solid #bdbdbd;
-  border-radius: 5px;
+  padding: 8px 12px 8px 36px; /* left padding for icon */
+  border: 1.2px solid #bdbdbd;
+  border-radius: 6px;
   font-size: 1em;
-  background: #f7fafc;
+  background: #fff url('data:image/svg+xml;utf8,<svg fill="gray" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99a1 1 0 001.41-1.41l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>') no-repeat 10px center;
   transition: border 0.15s, box-shadow 0.15s;
   box-shadow: 0 1px 4px rgba(0,82,204,0.04);
 }
 .gc-user-dropdown-search:focus {
   border: 1.5px solid #0052cc;
   outline: none;
-  background: #fff;
+  background-color: #f7fafc;
   box-shadow: 0 0 0 2px #e3eafc;
 }
 /* ...existing code... */
