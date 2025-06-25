@@ -66,3 +66,18 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* ...existing code... */
+.gc-user-dropdown-control {
+  padding: 8px 14px;      /* Reduce padding for a tighter fit */
+  min-height: 38px;       /* Adjust height if needed */
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #bdbdbd;
+  background: #fff;
+  display: flex;
+  align-items: center;    /* Vertically center the text */
+  justify-content: space-between;
+  transition: border 0.2s;
+  box-sizing: border-box;
+}
+/* ...existing code... */
