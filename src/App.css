@@ -1,0 +1,294 @@
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f7fa;
+}
+
+.gc-bg {
+  min-height: 100vh;
+  background: #f7f7fa;
+}
+
+.gc-header {
+  display: flex;
+  justify-content: flex-start;   /* changed from center */
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 24px;
+  margin-left: 37vw;             /* add this line to match the card shift */
+}
+
+.gc-logo {
+  height: 56px;
+  width: auto;
+}
+
+.gc-center-outer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: calc(100vh - 140px);
+  margin-left: 23vw; /* increase this value for more right shift */
+}
+
+.gc-login-card {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  overflow: hidden;
+  min-width: 600px;
+  max-width: 800px;
+}
+
+.gc-login-left {
+  flex: 1.2;
+  padding: 36px 32px 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gc-form {
+  width: 100%;
+}
+
+.gc-form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.gc-form-group input,
+.gc-form-group select {
+  padding: 12px 14px;
+  border: 1px solid #cfd8dc;
+  border-radius: 6px;
+  font-size: 1em;
+  background: #f7fafc;
+  transition: border 0.15s;
+}
+.gc-form-group input:focus,
+.gc-form-group select:focus {
+  border: 1.5px solid #0052cc;
+  outline: none;
+}
+
+.gc-region-row {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.gc-region-label {
+  font-size: 1em;
+  color: #333;
+}
+
+.gc-change-btn {
+  background: none;
+  border: none;
+  color: #0052cc;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 0 4px;
+  transition: color 0.15s;
+}
+.gc-change-btn:hover {
+  color: #003d99;
+  text-decoration: underline;
+}
+
+.gc-login-btn {
+  background: #0052cc;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  width: 100%;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,82,204,0.06);
+}
+.gc-login-btn:disabled {
+  background: #b3b3b3;
+  cursor: not-allowed;
+}
+
+.gc-reset-btn {
+  background: #fff;
+  color: #0052cc;
+  border: 1.5px solid #0052cc;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 12px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,82,204,0.04);
+}
+.gc-reset-btn:hover {
+  background: #f0f4ff;
+  color: #003d99;
+}
+
+.gc-info-msg {
+  margin-top: 18px;
+  color: #0052cc;
+  background: #e3eafc;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 1em;
+  text-align: center;
+}
+
+.gc-success {
+  margin-top: 18px;
+  color: #2e7d32;
+  background: #e8f5e9;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+.gc-error {
+  margin-top: 18px;
+  color: #c62828;
+  background: #ffebee;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+.gc-login-right {
+  flex: 1;
+  background: #6b4f7c;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 260px;
+  padding: 0 24px;
+  position: relative;
+}
+
+.gc-help-title {
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-bottom: 16px;
+  margin-top: 14px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.gc-help-list {
+  font-size: 1.03em;
+  padding-left: 20px;
+  margin-bottom: 18px;
+  color: #fff;
+  text-align: left;
+}
+
+.gc-help-footer {
+  font-size: 0.93em;
+  opacity: 0.9;
+  margin-top: 12px;
+  text-align: center;
+  color: #e3eafc;
+}
+
+.gc-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.gc-modal {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  min-width: 350px;
+  max-width: 420px;
+  padding: 0;
+  position: relative;
+  animation: modalPop 0.23s cubic-bezier(.4,2,.6,1) 1;
+}
+
+.gc-modal-glow {
+  border: 1.5px solid #a885ff;
+  box-shadow:
+    0 0 0 4px #ede7f6,
+    0 4px 32px rgba(168,133,255,0.10),
+    0 2px 8px rgba(0,82,204,0.08);
+}
+
+@keyframes modalPop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.gc-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px 12px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #6b4f7c;
+  letter-spacing: 0.25px;
+}
+
+.gc-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #a885ff;
+  cursor: pointer;
+  padding: 0 6px;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+.gc-modal-close:hover {
+  background: #f0f4ff;
+  color: #0052cc;
+}
+
+.gc-modal-body {
+  padding: 22px 24px 10px 24px;
+}
+
+.gc-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+  gap: 10px;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .gc-login-card {
+    flex-direction: column;
+    min-width: 320px;
+    max-width: 98vw;
+  }
+  .gc-login-right {
+    min-width: unset;
+    padding: 24px 0;
+  }
+  .gc-center-outer {
+    margin-left: 0;
+    justify-content: center;
+  }
+}
